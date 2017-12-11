@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MysqlTables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.duoku.groom.mybatis.plugin.PaginationPlugin"/>
+        <plugin type="com.github.oceanc.mybatis3.generator.plugin.SliceTablePlugin"/>
+        <plugin type="com.github.oceanc.mybatis3.generator.plugin.BatchInsertPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Criteria"/>
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin"/>
+
+        <!--去除注释-->
+        <commentGenerator type="DEFAULT">
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库连接-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/game"
+                        userId="root" password="123456">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--生成实体类 指定包名-->
+        <javaModelGenerator targetPackage="com.play.game.entity"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--生成SQLMAP文件-->
+        <sqlMapGenerator targetPackage="com.play.game.repository.mysql.mapper"
+                         targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--生成Dao文件 type属性和父节点的属性targetRuntime="MyBatis3"对应-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.play.game.repository.mysql" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table tableName="game_info" domainObjectName="GameInfo">
+            <!--<property name="sliceDaily" value="1"/>-->
+            <!--<property name="sliceColumn" value="create_time"/>-->
+            <generatedKey column="id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <!--<table tableName="sign_2017" domainObjectName="Sign">-->
+            <!--<property name="sliceDateFormat" value="yyyy"/>-->
+            <!--<property name="sliceColumn" value="create_time"/>-->
+        <!--</table>-->
+        <!--<table tableName="sign_log_2017" domainObjectName="SignLog">-->
+            <!--<property name="sliceDateFormat" value="yyyy"/>-->
+            <!--<property name="sliceColumn" value="create_time"/>-->
+        <!--</table>-->
+        <!--<table tableName="fill_sign_order_2017" domainObjectName="FillSignOrder">-->
+            <!--<property name="sliceDateFormat" value="yyyy"/>-->
+            <!--<property name="sliceColumn" value="create_time"/>-->
+        <!--</table>-->
+        <!--<table tableName="task_complete_log_2017" domainObjectName="TaskCompleteLog">-->
+            <!--<property name="sliceDateFormat" value="yyyy"/>-->
+            <!--<property name="sliceColumn" value="create_time"/>-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>

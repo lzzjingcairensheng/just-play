@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="sdp_log" monitorInterval="0" strict="false">
+	<properties>
+		<property name="patternLayout">%d{MM-dd HH:mm:ss:SSS} %-1p{length=1} %c{36}(%L) - %m%n%throwable{5}</property>
+		<property name="logName">logs/app.log</property>
+		<property name="logNamePattern">logs/$${date:yyyy-MM}/app-%d{yyyy-MM-dd}-%i.log.gz</property>
+	</properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${patternLayout}" />
+		</Console>
+		<RollingRandomAccessFile name="fileAppender" fileName="${logName}" filePattern="${logNamePattern}">
+			<PatternLayout>
+				<Pattern>${patternLayout}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="50MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="1" fileIndex="max" min="1" compressionLevel="0" />
+		</RollingRandomAccessFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.springframework" level="info" additivity="false"></Logger>
+		<Logger name="org.apache" level="trace" additivity="false"></Logger>
+		<Logger name="com.nd.gaea" level="trace" additivity="false"></Logger>
+		<Logger name="org.mongodb" level="trace" additivity="false"></Logger>
+		<Root level="${log4j.level}" includeLocation="true">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="fileAppender"/>
+		</Root>
+	</Loggers>
+</Configuration>
