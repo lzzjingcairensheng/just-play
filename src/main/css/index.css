@@ -1,0 +1,15 @@
+.indextitle{
+    text-align: center;
+    padding-top: 5%;
+    color: black;
+}
+.subtitle{
+    margin: auto;
+    text-align: left;
+    color: gainsboro;
+}
+.search{
+    margin:3%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
